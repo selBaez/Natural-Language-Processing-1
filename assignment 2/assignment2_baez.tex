@@ -1,0 +1,101 @@
+% --------------------------------------------------------------
+% This is all preamble stuff that you don't have to worry about.
+% Head down to where it says "Start here"
+% --------------------------------------------------------------
+ 
+\documentclass[12pt]{article}
+ 
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{enumitem}
+ 
+\newcommand{\lp}{\left(}
+\newcommand{\rp}{\right)}
+\newcommand{\eye}{{\bf I}}
+
+\newenvironment{exercise}[2][Exercise]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+ 
+\begin{document}
+ 
+% --------------------------------------------------------------
+%                         Start here
+% --------------------------------------------------------------
+ 
+%\renewcommand{\qedsymbol}{\filledbox}
+ 
+\title{NLP 1 - Assignment 2}%replace X with the appropriate number
+\author{Selene Baez Santamaria} %replace with your name
+\maketitle
+ 
+\begin{exercise}{1. Spelling corrector} Correct usages of \textit{there} and \textit{their}
+	
+\begin{enumerate}[label=(\alph*)]
+
+\item Unigram model \\
+	\begin{itemize}
+	\item Write the general equation for sentence probability under the unigram model.
+	
+	\item Does this seem like a good solution to the their vs. there problem? Justify your answer.
+	
+	\end{itemize}
+		  
+\item Bigram \\
+	\begin{itemize}
+	\item Write the general equation for sentence probability under the bi-gram model.
+	
+	\item Why might this model be better than the model in the previous question?
+	
+	\end{itemize}
+
+\end{enumerate}
+\end{exercise}
+ 
+\begin{exercise}{2. Second order Markov assumption} A trigram model
+\begin{enumerate}[label=(\alph*)]
+	\item Give three examples in English where English grammar indicates that this independence assumption is very clearly violated.
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}{3. HMM Tagger} Name entity recognition.
+	
+\begin{enumerate}[label=(\alph*)]
+
+\item Transition probability matrix \\
+		  
+\item Transition probability matrix with add-one smoothing \\
+
+\item What are the estimates for $P \lp Obama|PER \rp$ and $P \lp Obama|ORG \rp$ \\
+
+\item Suppose we used four tags for this task: the three already mentioned, plus a LOC tag for locations. In a general text, will context always be able to disambiguate between the LOC and ORG tags? \\
+
+\item Can you think of any sources of information that might help an automatic NER system perform better, but which are not used by an HMM tagger? Back up your answer with examples from the text here, or give examples that could occur in another text. \\
+
+\end{enumerate}
+\end{exercise}
+ 
+\begin{exercise}{4. Bigram tagging} Tag the sentence: \textit{The healthy man the lifeboats}
+	
+\begin{enumerate}[label=(\alph*)]
+
+\item Use the tags DT, N, V, ADj
+
+\end{enumerate}
+\end{exercise}
+ 
+\begin{exercise}{5. Viterbi} Tag the sentence: \textit{The healthy man the lifeboats}
+	
+\begin{enumerate}[label=(\alph*)]
+
+\item Hand simulate the Viterbi algorithm using the given transition and emission probabilities
+
+\item Give the joint probability 
+
+\end{enumerate}
+\end{exercise} 
+ 
+% --------------------------------------------------------------
+%     You don't have to mess with anything below this line.
+% --------------------------------------------------------------
+ 
+\end{document}
