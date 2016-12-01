@@ -13,7 +13,12 @@
  
 \newcommand{\lp}{\left(}
 \newcommand{\rp}{\right)}
-\newcommand{\eye}{{\bf I}}
+\newcommand\tline[2]{$\underset{\text{#1}}{\text{\underline{\hspace{#2}}}}$}
+\newcommand\fline[2]{$\underset{\text{#1}}{\text{\underline{\hspace{#2}$>$}}}$}
+
+\usepackage{array}
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
+
 
 \newenvironment{exercise}[2][Exercise]{\begin{trivlist}
 \item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
@@ -30,10 +35,10 @@
 \author{Selene Baez Santamaria} %replace with your name
 \maketitle
  
-\begin{exercise}{1} Context free grammar\\ 
+\begin{exercise}{1} Context free grammar
 \begin{enumerate}[label=(\alph*)]
 
-\item Convert the grammar to Chomsky Normal Form. \\ 
+\item Convert the grammar to Chomsky Normal Form. 
 
 	\begin{multicols}{2}
 	\begin{itemize}
@@ -52,7 +57,7 @@
 	\end{itemize}
 	\end{multicols}
  	  
-\item Use the CKY algorithm to parse the sentence, representing the CKY chart in matrix form. \\ \textbf{I ate the salad with a fork} \\
+\item Use the CKY algorithm to parse the sentence, representing the CKY chart in matrix form. \textbf{I ate the salad with a fork} \\
 
 \begin{tabular}{|c|c|c|c|c|c|c|}
 \hline
@@ -75,12 +80,12 @@ We get only one complete analysis of S, being:
 \end{enumerate}
 \end{exercise}
  
-\begin{exercise}{2} Tree corpus \\
+\begin{exercise}{2} Tree corpus
 \begin{enumerate}[label=(\alph*)]
 
 \item Derive a PCFG. Write down the rules and calculate their probabilities \\
 
-Written as Chomsky Normal Form: \\
+Written as Chomsky Normal Form:
 
 	\begin{multicols}{2}
 	\begin{itemize}
@@ -105,17 +110,15 @@ Written as Chomsky Normal Form: \\
 	
 \item Possible trees for \textbf{He saw the man with the telescope} \\
 
-First option: \\
+First option:
 
 \Tree [.S_{\frac{4}{4}} [.NP_{\frac{1}{14}} He ] [.VP_{\frac{4}{5}} [.V_{\frac{3}{4}} saw ] [.NP_{\frac{2}{14}} [.NP_{\frac{9}{14}} [.Det_{\frac{7}{9}} the ] [.N_{\frac{3}{9}} man ] ] [.PP_{\frac{3}{3}} [.P_{\frac{2}{3}} with ] [.NP_{\frac{9}{14}} [.Det_{\frac{7}{9}} the ] [.N_{\frac{1}{9}} telescope ] ] ] ] ] ]
-
-Probability: \\
 
 \begin{align*}
 P = \frac{4}{4} \cdot \frac{1}{14} \cdot \overbrace{\frac{4}{5} \cdot \frac{3}{4} \cdot \frac{2}{14}}^{distinct} \cdot \frac{9}{14} \cdot \frac{7}{9} \cdot \frac{3}{9} \cdot \frac{3}{3} \cdot \frac{2}{3} \cdot \frac{9}{14} \cdot \frac{7}{9} \cdot \frac{1}{9} = \frac{1}{5 \cdot 14 \cdot 9 \cdot 14 \cdot 3} = \frac{1}{26460}
 \end{align*}
 
-Second option: \\
+Second option:
 
 \Tree [.S_{\frac{4}{4}} [.NP_{\frac{1}{14}} He ] [.VP_{\frac{1}{5}} [.VP_{\frac{4}{5}} [.V_{\frac{3}{4}} saw ] [.NP_{\frac{9}{14}} [.Det_{\frac{7}{9}} the ] [.N_{\frac{3}{9}} man ] ] ] [.PP_{\frac{3}{3}} [.P_{\frac{2}{3}} with ] [.NP_{\frac{9}{14}} [.Det_{\frac{7}{9}} the ] [.N_{\frac{1}{9}} telescope ] ] ] ] ]
 
@@ -148,7 +151,7 @@ Hence, the most likely suggestion would be \textbf{The girl saw the man}. The te
 \end{enumerate}
 \end{exercise}
 
-\begin{exercise}{3} Probabilistic Context Free Grammar \\
+\begin{exercise}{3} Probabilistic Context Free Grammar
 \begin{enumerate}[label=(\alph*)]
 
 \item Find the most probable parse for the sentence \textbf{I make her duck} \\
@@ -163,7 +166,7 @@ Subj $\rightarrow$ \textit{I} (0.3) & $\emptyset$ & S $\rightarrow$ Subj VP (0.0
 & & & N $\rightarrow$ \textit{duck} (0.5) \newline V $\rightarrow$ \textit{duck} (0.4) \newline NP $\rightarrow$ N (0.25) \newline Subj $\rightarrow$ NP (0.175) \newline {\color{blue}Obj $\rightarrow$ NP (0.2)}\\ \hline 
 \end{tabular} \\
 
-The most probable parse for this sentence corresponds to the {\color{green} green parse} with this tree: \\
+The most probable parse for this sentence corresponds to the {\color{green} green parse} with this tree:
 
 \Tree [.S [.Subj I ] [.VP [.V make ] [.Obj [.NP [.Det her ] [.N duck ] ] ] ] ]
 
@@ -172,12 +175,12 @@ The semantic meaning is equivalent to "I make a duck. The duck is her's". \\
 \end{enumerate}
 \end{exercise}
  
-\begin{exercise}{4} Dependency parsing: MST \\	
+\begin{exercise}{4} Dependency parsing: MST	
 \begin{enumerate}[label=(\alph*)]
 
-\item Explain step by step how the CLE algorithm is applied\\
+\item Explain step by step how the CLE algorithm is applied
 \begin{enumerate}
-\item Greedily select the incoming edge with the highest score, for each node. \\
+\item Greedily select the incoming edge with the highest score, for each node.
 
 \begin{tikzpicture}
  \SetUpEdge[lw         = 1.5pt,
@@ -213,8 +216,9 @@ John $\leftarrow$ & {\color{red}$20$} & $5$ \\ \hline
 plain $\leftarrow$ & $5$ & {\color{red}$15$} \\ \hline
 \end{tabular} \\
 
-\item The maximum incoming and outcoming edges per external node are marked in red. The new graph looks as follows: \\
+\item The maximum incoming and outcoming edges per external node are marked in red. The new graph looks as follows:
 
+\begin{multicols}{2}
 \begin{tikzpicture}
  \SetUpEdge[lw         = 1.5pt,
             color      = black,
@@ -243,8 +247,9 @@ John & $0$ & - & $20$ & $10$ \\ \hline
 wj & $45$ & $35$ & - & $50$ \\ \hline
 plain & $0$ & $5$ & $15$ & - \\ \hline
 \end{tabular} \\
+\end{multicols}
 
-\item We apply CLE recursively and go back to a) with the new graph as basis \\
+\item We apply CLE recursively and go back to a) with the new graph as basis
 
 \begin{tikzpicture}
  \SetUpEdge[lw         = 1.5pt,
@@ -254,7 +259,7 @@ plain & $0$ & $5$ & $15$ & - \\ \hline
   \SetGraphUnit{3}
   \tikzset{VertexStyle/.append  style={fill}}
   \Vertex{John}
-  \SOEA(John){wj}  \EA(wj){plain}
+  \EA(John){wj}  \EA(wj){plain}
   \tikzset{EdgeStyle/.style={->}}
   \Edge[label=$20$](wj)(John)
   \tikzstyle{EdgeStyle}=[color=blue, style ={->}]
@@ -277,8 +282,9 @@ John $\rightarrow$ & $35+15 = 50$ & {\color{red}$5+50 = 55$} \\ \hline
 John $\leftarrow$ & {\color{red}$20$} & $0$ \\ \hline
 \end{tabular} \\
 
-\item The resulting graph is: \\
+\item The resulting graph is:
 
+\begin{multicols}{2}
 \begin{tikzpicture}
  \SetUpEdge[lw         = 1.5pt,
             color      = black,
@@ -287,7 +293,7 @@ John $\leftarrow$ & {\color{red}$20$} & $0$ \\ \hline
   \SetGraphUnit{3}
   \tikzset{VertexStyle/.append  style={fill}}
   \Vertex{root}
-  \NOEA(root){John} \SOEA(root){wk}
+  \EA(root){John} \SOEA(root){wk}
   \tikzset{EdgeStyle/.style={->}}
   \Edge[label=$0$](root)(John)
   \Edge[label=$60$](root)(wk)
@@ -301,8 +307,9 @@ John $\leftarrow$ & {\color{red}$20$} & $0$ \\ \hline
 John & $0$ & - & $20$ \\ \hline
 wk & $60$ & $55$ & - \\ \hline
 \end{tabular} \\
+\end{multicols}
 
-\item Going back to a) once more: \\
+\item Going back to a) once more:
 
 \begin{tikzpicture}
  \SetUpEdge[lw         = 1.5pt,
@@ -311,11 +318,11 @@ wk & $60$ & $55$ & - \\ \hline
   \GraphInit[vstyle=Normal] 
   \SetGraphUnit{3}
   \tikzset{VertexStyle/.append  style={fill}}
-  \Vertex{John}
-  \SOWE(John){root}  \SOEA(John){wk}
+  \Vertex{wk}
+  \WE(wk){root}  \EA(wk){John}
   \tikzset{EdgeStyle/.style={->}}
   \Edge[label=$20$](wk)(John)
-  \Edge[label=$50$](root)(wk)
+  \Edge[label=$60$](root)(wk)
 \end{tikzpicture}
 
 \item Since there are no more cycles, we are done.
@@ -326,7 +333,8 @@ wk & $60$ & $55$ & - \\ \hline
 
 We interpret the previous graph and reconstruct it. Regarding wk outgoing edges, we backtrack that wk $\rightarrow$ John comes from wj $\rightarrow$ likes $\rightarrow$ John. Thus we include \textbf{likes $\rightarrow$ John}. \\
 
-Regarding incoming edges, we backtrack that root $\rightarrow$ wk comes from root $\rightarrow$ wj $\rightarrow$ plain. At the same time, wj $\rightarrow$ plain comes from bagels $\rightarrow$ plain. Thus we include \textbf{root $\rightarrow$ likes} and \textbf{bagels $\rightarrow$ plain}
+Regarding incoming edges, we backtrack that root $\rightarrow$ wk comes from root $\rightarrow$ wj $\rightarrow$ plain. On the one hand, root $\rightarrow$ wj comes from root $\rightarrow$ likes $\rightarrow$ bagels. 
+On the other hand, wj $\rightarrow$ plain comes from bagels $\rightarrow$ plain. Thus we include \textbf{root $\rightarrow$ likes}, \textbf{likes $\rightarrow$ bagels}, and \textbf{bagels $\rightarrow$ plain}
 
 \begin{tikzpicture}
  \SetUpEdge[lw         = 1.5pt,
@@ -348,21 +356,92 @@ Regarding incoming edges, we backtrack that root $\rightarrow$ wk comes from roo
 \end{exercise}
  
 \begin{exercise}{5} Dependency parsing: Transition-based \\
+Consider the sentence: \textbf{A koala eats leafs and barks}
 \begin{enumerate}[label=(\alph*)]
 
 \item Will a transition-based dependency parser be able to correctly predict this structure? \\ 
+No. As seen in the next table, this transition-based dependency parser is not able to correctly predict this structure. \\ 
 
-\item List transitions. \\
+\begin{tabular}{|p{35mm}|p{35mm}|p{35mm}|p{40mm}|} \hline
+\textbf{Transition} & \textbf{Stack} & \textbf{Buffer} & \textbf{Arc set} \\ \hline
+- & [ROOT] & A koala eats leafs and barks & $\emptyset$ \\ \hline
+SHIFT & [ROOT A] & koala eats leafs and barks & $\emptyset$ \\ \hline
+SHIFT & [ROOT A koala] & eats leafs and barks & $\emptyset$ \\ \hline
+LEFT-ARC(det) & [ROOT koala] & eats leafs and barks & A $\cup$ det(koala, A) \\ \hline
+SHIFT & [ROOT koala eats] & leafs and barks & A \\ \hline
+LEFT-ARC(nsubj) & [ROOT eats] & leafs and barks & A $\cup$ nsubj(eats, koala) \\ \hline
+{\color{red}RIGHT-ARC(root)} & {\color{red}[ROOT]} & {\color{red}leafs and barks} & {\color{red}A $\cup$ root(root, eats)} \\ \hline
+SHIFT & [ROOT leafs] & and barks & A \\ \hline
+SHIFT & [ROOT leafs and] & barks & A \\ \hline
+RIGHT-ARC(cc) & [ROOT leafs] & barks & A $\cup$ cc(leafs, and) \\ \hline
+SHIFT & [ROOT leafs barks] & $\emptyset$ & A \\ \hline
+RIGHT-ARC(conj) & [ROOT leafs] & $\emptyset$ & A $\cup$ conj(leafs, barks) \\ \hline
+\end{tabular} \\
 
 \item If there is a mistake, state what was the mistake \\
-
-\item Show the stack, buffer, action and arc set \\
+The arc-standard parser finds all but one arc: dobj(eats, leafs). The error arises in the configuration highlighted in {\color{red}red}, where the parser eliminates the word \textit{eats}, thus eliminating the possibility to connect \textit{eats} to \textit{leafs}. This error arises because the parser only performs local decisions, thus being ignorant to global structures.
 
 \end{enumerate}
 \end{exercise} 
+
+\begin{exercise}{6} CCG
+\begin{enumerate}[label=(\alph*), leftmargin=0mm]
+
+\item Derive \textbf{The company added four Boeing-747s to the two units in 1994} \\
+
+\begin{tabular}{@{}P{6.5mm}P{14mm}P{22mm}P{6.5mm}P{11.5mm}P{8.5mm}P{6.5mm}P{5.5mm}P{7.5mm}P{27mm}P{7mm}}
+\textit{The} & \textit{company} & \textit{added} & \textit{four} & \textit{Boeing-747s} & \textit{to} & \textit{the} & \textit{two} & \textit{units} & \textit{in} & \textit{1994} \\
+\tline{NP/N}{5.5mm} & \tline{N}{13mm} & \tline{((S\textbackslash NP)/PP)/NP}{21mm} & \tline{NP/N}{5.5mm} & \tline{N}{10.5mm} & \tline{PP/NP}{7.5mm} & \tline{NP/N}{6mm} & \tline{N/N}{4.5mm} & \tline{N}{6.5mm} & \tline{((S\textbackslash NP)\textbackslash (S\textbackslash NP))/NP}{26mm} & \tline{NP}{6mm} \\
+\fline{NP}{19.5mm} & & & \fline{NP}{17mm} & & & & \fline{N}{12mm} & & \fline{(S\textbackslash NP)\textbackslash (S\textbackslash NP)}{33mm} & \\
+& & & & & & \fline{NP}{22mm} & & & & \\
+& & \fline{(S\textbackslash NP)/PP}{45mm} & & & \fline{PP}{35mm} & & & & & \\
+& & \fline{(S\textbackslash NP)}{87mm} & & & & & & & & \\
+& & \fline{S\textbackslash NP}{130mm} & & & & & & & & \\
+\fline{S}{160mm} & & & & & & & & & & \\
+\end{tabular} \\
+
+\item Derive noun phrases for \textbf{the company which added four Boeing-747s to the two units in 1994} and \textbf{the four Boeing-747s which the company added to the two units in 1994} \\
+
+First case: \\
+
+\begin{tabular}{@{}P{6.5mm}P{14mm}P{5mm}P{22mm}P{6.5mm}P{11.5mm}P{8.5mm}P{6.5mm}P{5.5mm}P{7.5mm}P{27mm}P{7mm}}
+\textit{the} & \textit{company} & \textit{which} & \textit{added} & \textit{four} & \textit{Boeing-747s} & \textit{to} & \textit{the} & \textit{two} & \textit{units} & \textit{in} & \textit{1994} \\
+\tline{NP/N}{5.5mm} & \tline{N}{13mm} & \tline{X}{4mm} & \tline{((S\textbackslash NP)/PP)/NP}{21mm} & \tline{NP/N}{5.5mm} & \tline{N}{10.5mm} & \tline{PP/NP}{7.5mm} & \tline{NP/N}{6mm} & \tline{N/N}{4.5mm} & \tline{N}{6.5mm} & \tline{((S\textbackslash NP)\textbackslash (S\textbackslash NP))/NP}{26mm} & \tline{NP}{6mm} \\
+\fline{NP}{19.5mm} & & & & \fline{NP}{17mm} & & & & \fline{N}{12mm} & & \fline{(S\textbackslash NP)\textbackslash (S\textbackslash NP)}{33mm} & \\
+& & & & & & & \fline{NP}{22mm} & & & & \\
+& & & \fline{(S\textbackslash NP)/PP}{45mm} & & & \fline{PP}{35mm} & & & & & \\
+& & & \fline{(S\textbackslash NP)}{87mm} & & & & & & & & \\
+& & & \fline{S\textbackslash NP}{130mm} & & & & & & & & \\
+\end{tabular} \\
+
+Second case: \\
+
+\begin{tabular}{@{}P{8mm}@{}P{9mm}@{}P{17mm}@{}P{11mm}@{}P{9mm}@{}P{15mm}@{}P{24mm}@{}P{13mm}@{}P{8mm}@{}P{8mm}@{}P{9mm}@{}P{28mm}@{}P{8mm}}
+\textit{the} & \textit{four} & \textit{Boeing-747s} & \textit{which} & \textit{the} & \textit{company} & \textit{added} & \textit{to} & \textit{the} & \textit{two} & \textit{units} & \textit{in} & \textit{1994} \\
+\tline{NP/N}{6mm} & \tline{NP/N}{7mm} & \tline{N}{11mm} & \tline{X}{8mm} & \tline{NP/N}{6mm} & \tline{N}{13mm} & \tline{((S\textbackslash NP)/PP)/NP}{22mm} & \tline{PP/NP}{8mm} & \tline{NP/N}{6mm} & \tline{N/N}{6mm} & \tline{N}{7mm} & \tline{((S\textbackslash NP)\textbackslash (S\textbackslash NP))/NP}{26mm} & \tline{NP}{6mm} \\
+%& \fline{NP}{19.5mm} & & & & \fline{NP}{17mm} & & & & \fline{N}{12mm} & & \fline{(S\textbackslash NP)\textbackslash (S\textbackslash NP)}{33mm} & \\
+%& & & & & & & & \fline{NP}{22mm} & & & & \\
+%& & & \fline{(S\textbackslash NP)/PP}{45mm} & & & \fline{PP}{35mm} & & & & & \\
+%& & & \fline{(S\textbackslash NP)}{87mm} & & & & & & & & \\
+%& & & \fline{S\textbackslash NP}{130mm} & & & & & & & & \\
+\end{tabular} \\
+
+\item Dutch sentence that is non-context free \\
+
+As taken from \cite{steedman2011combinatory}
+
+\includegraphics{dutch_dependency.png}
+
+Where \textit{zag}, the verb, is separated from \textit{ik}, its subject, by  4 words forming an argument by themselves. 
+
+\end{enumerate}
+\end{exercise}
  
 % --------------------------------------------------------------
 %     You don't have to mess with anything below this line.
 % --------------------------------------------------------------
+\bibliographystyle{plain}
+\bibliography{mybib} 
+ 
  
 \end{document}
