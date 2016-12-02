@@ -15,6 +15,7 @@
 \newcommand{\rp}{\right)}
 \newcommand\tline[2]{$\underset{\text{#1}}{\text{\underline{\hspace{#2}}}}$}
 \newcommand\fline[2]{$\underset{\text{#1}}{\text{\underline{\hspace{#2}$>$}}}$}
+\newcommand\bline[2]{$\underset{\text{#1}}{\text{\underline{\hspace{#2}$<$}}}$}
 
 \usepackage{array}
 \newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
@@ -396,35 +397,47 @@ The arc-standard parser finds all but one arc: dobj(eats, leafs). The error aris
 & & & & & & \fline{NP}{22mm} & & & & \\
 & & \fline{(S\textbackslash NP)/PP}{45mm} & & & \fline{PP}{35mm} & & & & & \\
 & & \fline{(S\textbackslash NP)}{87mm} & & & & & & & & \\
-& & \fline{S\textbackslash NP}{130mm} & & & & & & & & \\
-\fline{S}{160mm} & & & & & & & & & & \\
+& & \bline{S\textbackslash NP}{130mm} & & & & & & & & \\
+\bline{S}{160mm} & & & & & & & & & & \\
 \end{tabular} \\
 
 \item Derive noun phrases for \textbf{the company which added four Boeing-747s to the two units in 1994} and \textbf{the four Boeing-747s which the company added to the two units in 1994} \\
 
 First case: \\
 
-\begin{tabular}{@{}P{6.5mm}P{14mm}P{5mm}P{22mm}P{6.5mm}P{11.5mm}P{8.5mm}P{6.5mm}P{5.5mm}P{7.5mm}P{27mm}P{7mm}}
+\begin{tabular}{@{}P{6mm}P{13mm}P{20mm}P{22mm}P{6.5mm}P{11.5mm}P{8.5mm}P{6.5mm}P{5.5mm}P{7mm}P{27mm}P{7mm}}
 \textit{the} & \textit{company} & \textit{which} & \textit{added} & \textit{four} & \textit{Boeing-747s} & \textit{to} & \textit{the} & \textit{two} & \textit{units} & \textit{in} & \textit{1994} \\
-\tline{NP/N}{5.5mm} & \tline{N}{13mm} & \tline{X}{4mm} & \tline{((S\textbackslash NP)/PP)/NP}{21mm} & \tline{NP/N}{5.5mm} & \tline{N}{10.5mm} & \tline{PP/NP}{7.5mm} & \tline{NP/N}{6mm} & \tline{N/N}{4.5mm} & \tline{N}{6.5mm} & \tline{((S\textbackslash NP)\textbackslash (S\textbackslash NP))/NP}{26mm} & \tline{NP}{6mm} \\
+\tline{NP/N}{5.5mm} & \tline{N}{13mm} & \tline{(NP/(S\textbackslash NP))\textbackslash NP}{18mm} & \tline{((S\textbackslash NP)/PP)/NP}{21mm} & \tline{NP/N}{5.5mm} & \tline{N}{10.5mm} & \tline{PP/NP}{7.5mm} & \tline{NP/N}{6mm} & \tline{N/N}{4.5mm} & \tline{N}{6.5mm} & \tline{((S\textbackslash NP)\textbackslash (S\textbackslash NP))/NP}{26mm} & \tline{NP}{6mm} \\
 \fline{NP}{19.5mm} & & & & \fline{NP}{17mm} & & & & \fline{N}{12mm} & & \fline{(S\textbackslash NP)\textbackslash (S\textbackslash NP)}{33mm} & \\
-& & & & & & & \fline{NP}{22mm} & & & & \\
+\bline{NP/(S\textbackslash NP)}{43mm} & & & & & & & \fline{NP}{22mm} & & & & \\
 & & & \fline{(S\textbackslash NP)/PP}{45mm} & & & \fline{PP}{35mm} & & & & & \\
 & & & \fline{(S\textbackslash NP)}{87mm} & & & & & & & & \\
-& & & \fline{S\textbackslash NP}{130mm} & & & & & & & & \\
+& & & \bline{S\textbackslash NP}{130mm} & & & & & & & & \\
+\fline{NP}{180mm} & & & & & & & & & & \\
 \end{tabular} \\
 
-Second case: \\
+Here, \textit{which} has the lexical category (NP/(S\textbackslash NP))\textbackslash NP. If we interpret S\textbackslash NP as a VP, then the category for \textit{which} can be interpret as: \\
 
-\begin{tabular}{@{}P{8mm}@{}P{9mm}@{}P{17mm}@{}P{11mm}@{}P{9mm}@{}P{15mm}@{}P{24mm}@{}P{13mm}@{}P{8mm}@{}P{8mm}@{}P{9mm}@{}P{28mm}@{}P{8mm}}
+\textsc{Given a noun phrase before, and a verb phrase after, } \textit{which} \textsc{will produce a noun phrase}.\\
+
+
+In order to derive the second noun phrase we had to make a couple assumptions. First, the category for \textit{added} was changed from ((S\textbackslash NP)/PP)/NP to ((S\textbackslash NP)/PP). We believe that for this word, both are lexical categories valid. Second, the category for \textit{four} was changed from NP/N to N/N. This change was inspired by looking at the category of \textit{two}, which is equivalent to \textit{four}. \\
+
+\begin{tabular}{@{}P{8mm}@{}P{9mm}@{}P{17mm}@{}P{25mm}@{}P{9mm}@{}P{15mm}@{}P{24mm}@{}P{13mm}@{}P{8mm}@{}P{8mm}@{}P{9mm}@{}P{28mm}@{}P{8mm}}
 \textit{the} & \textit{four} & \textit{Boeing-747s} & \textit{which} & \textit{the} & \textit{company} & \textit{added} & \textit{to} & \textit{the} & \textit{two} & \textit{units} & \textit{in} & \textit{1994} \\
-\tline{NP/N}{6mm} & \tline{NP/N}{7mm} & \tline{N}{11mm} & \tline{X}{8mm} & \tline{NP/N}{6mm} & \tline{N}{13mm} & \tline{((S\textbackslash NP)/PP)/NP}{22mm} & \tline{PP/NP}{8mm} & \tline{NP/N}{6mm} & \tline{N/N}{6mm} & \tline{N}{7mm} & \tline{((S\textbackslash NP)\textbackslash (S\textbackslash NP))/NP}{26mm} & \tline{NP}{6mm} \\
-%& \fline{NP}{19.5mm} & & & & \fline{NP}{17mm} & & & & \fline{N}{12mm} & & \fline{(S\textbackslash NP)\textbackslash (S\textbackslash NP)}{33mm} & \\
-%& & & & & & & & \fline{NP}{22mm} & & & & \\
-%& & & \fline{(S\textbackslash NP)/PP}{45mm} & & & \fline{PP}{35mm} & & & & & \\
-%& & & \fline{(S\textbackslash NP)}{87mm} & & & & & & & & \\
-%& & & \fline{S\textbackslash NP}{130mm} & & & & & & & & \\
+\tline{NP/N}{6mm} & \tline{N/N}{7mm} & \tline{N}{11mm} & \tline{(NP/S)\textbackslash NP}{18mm} & \tline{NP/N}{6mm} & \tline{N}{13mm} & \tline{(S\textbackslash NP)/PP}{15mm} & \tline{PP/NP}{8mm} & \tline{NP/N}{6mm} & \tline{N/N}{6mm} & \tline{N}{7mm} & \tline{((S\textbackslash NP)\textbackslash (S\textbackslash NP))/NP}{26mm} & \tline{NP}{6mm} \\
+& \fline{N}{19.5mm} & & & \fline{NP}{17mm} & & & & & \fline{N}{12mm} & & \fline{(S\textbackslash NP)\textbackslash (S\textbackslash NP)}{33mm} & \\
+\fline{NP}{28mm} & & & & & & & & \fline{NP}{22mm} & & & & \\
+\bline{NP/S}{52mm} & & & & & & & \fline{PP}{35mm} & & & & \\
+& & & & & & \fline{(S\textbackslash NP)}{50mm} & & & & & \\
+& & & & & & \bline{S\textbackslash NP}{93mm} & & & & & \\
+& & & & \bline{S}{118mm} & & & & & & & \\
+\fline{NP}{178mm} & & & & & & & & & & & \\
 \end{tabular} \\
+
+Here, \textit{which} has the lexical category (NP/S)\textbackslash NP. This time the category for \textit{which} can be interpret as: \\
+
+\textsc{Given a noun phrase before, and a sentence after, } \textit{which} \textsc{will produce a noun phrase}.\\
 
 \item Dutch sentence that is non-context free \\
 
