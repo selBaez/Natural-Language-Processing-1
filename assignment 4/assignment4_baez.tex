@@ -142,7 +142,7 @@ $\lambda x. \lambda y. \lp \exists e. \hspace{0.2cm} Liking(e) \land Liker(e, y)
 \item \textit{A cat meows} \\
 The MR is: $\lambda x.\lp \exists e. Meowing(e) \land Meower(e, x) \rp$ 
 
-We face the problem that we cannot specify that $x$ must be a cat. We solve it by adding these rules:
+We face the problem that we cannot specify that $x$ must be a cat. Additionally, "A cat" represents an existential quantifiers to be combined in the NP. We try to solve it by adding these rules:
 
 \begin{itemize}
 \item $NP \rightarrow Det N \hspace{1.5cm} \lambda x. \hspace{0.2cm} \lp \exists x. Cat(x) \rp$ %something for a the exits
@@ -177,7 +177,9 @@ $\lambda x. \lp \exists e. \hspace{0.2cm} Meowing(e) \land Meower(e,x) \land Cat
  \item Assumptions:
  
  \begin{itemize}
- \item Independence?
+ \item All alignments are equally likely
+ \item Words in a translation are only dependent on their alignment to the source language, but independent on other translated words surrounding them.
+ \item Some word may not have direct translations, so they introduce the token "NULL"
  \end{itemize}
  
 \end{enumerate}
