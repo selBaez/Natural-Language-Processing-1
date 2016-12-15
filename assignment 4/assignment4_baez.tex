@@ -1,0 +1,193 @@
+% --------------------------------------------------------------
+% This is all preamble * that you don't have to worry about.
+% Head down to where it says "Start here"
+% --------------------------------------------------------------
+ 
+\documentclass[12pt]{article}
+ 
+\usepackage[margin=1in]{geometry} 
+\usepackage{amsmath,amsthm,amssymb}
+\usepackage{enumitem, blkarray}
+
+\usepackage{float, vwcol, color, microtype}
+ 
+\newcommand{\lp}{\left(}
+\newcommand{\rp}{\right)}
+\usepackage{array}
+\newcolumntype{P}[1]{>{\centering\arraybackslash}p{#1}}
+
+\newenvironment{exercise}[2][Exercise]{\begin{trivlist}
+\item[\hskip \labelsep {\bfseries #1}\hskip \labelsep {\bfseries #2.}]}{\end{trivlist}}
+  
+\begin{document}
+ 
+% --------------------------------------------------------------
+%                         Start here
+% --------------------------------------------------------------
+ 
+%\renewcommand{\qedsymbol}{\filledbox}
+ 
+\title{NLP 1 - Assignment 4}%replace X with the appropriate number
+\author{Selene Baez Santamaria} %replace with your name
+\maketitle
+ 
+\begin{exercise}{1} PMI
+\begin{enumerate}[label=(\alph*)]
+
+\item For each example, explain what P(x,y) represents. 
+
+	\begin{itemize}
+	\item P(x,y) represents the probability of the bi-gram "eat pizza".
+	\item P(x,y) represents the probability of a Tweet containing "happy" and "pizza".
+	\end{itemize}
+  
+\item What do negative, zero and positive PMI's mean? \\
+Defining PMI as $\log_2(r)$ where $r = \frac{P(x,y)}{P(x)P(y)} = \frac{P(x|y)}{P(x)} = \frac{P(y|x)}{P(y)}$
+
+\begin{itemize}
+\item If PMI $< 0 \rightarrow r < 1 \rightarrow P(x,y) < P(x)P(y)$. This means that the actual co-occurrence probability is less than their predicted co-ocurrence probability if they were independent. Therefore, lower PMIs correspond to co-occurrences that are less likely. Example: "he you" has a low association and is very unlikely to co-occur.
+
+\item If PMI $= 0 \rightarrow r = 1 \rightarrow P(x,y) = P(x)P(y)$. This means that the two events are statistically independent. 
+
+\item If PMI $> 0 \rightarrow r > 1 \rightarrow P(x,y) > P(x)P(y)$. This means that the actual co-occurrence probability is higher than their predicted co-occurrence probability if they were independent.Therefore, higher PMIs correspond to co-occurrences that are more likely. Example: "New York" has a high association and is very likely to co-occur. 
+\end{itemize}
+
+\end{enumerate}
+\end{exercise}
+ 
+\begin{exercise}{2} MaxEnt
+\begin{enumerate}[label=(\alph*)]
+
+\item Simplified expression for $\log{P(y|\vec{x})}$
+\begin{align*}
+ \log{P(y|\vec{x})} &= \log{\frac{exp(\sum_1 w_i f_i(\vec{x},y))}{\sum_{y'} exp(\sum_1 w_i f_i(\vec{x},y')))}} \\
+ &= \log{exp(\sum_1 w_i f_i(\vec{x},y))} -  \log{\sum_{y'} exp(\sum_1 w_i f_i(\vec{x},y')))} \\
+ &= \sum_1 w_i f_i(\vec{x},y) -  C = \vec{w} \cdot \vec{f} - C
+\end{align*}
+The end result is a linear function of the feature vector.
+	
+\item Which sense is the most probable? \\
+
+For \textit{y = 1}, features 1 and 7 are active
+\begin{align}
+p(y=1|\vec{x}) &= \frac{\exp(2.0 -0.1)}{\exp(2.0-0.1)+ \exp(1.8+1.1) + \exp(0.3+2.7)} \\
+&= \frac{\exp(1.9)}{\exp(1.9)+ \exp(2.9) + \exp(3)}\\
+&= \frac{6.685}{44.945} = 0.149
+\end{align}
+
+For \textit{y = 2}, features 2 and 8 are active
+\begin{align}
+p(y=1|\vec{x}) &= \frac{\exp(2.9)}{\exp(1.9)+ \exp(2.9) + \exp(3)}\\
+&= \frac{18.174}{44.945}  = 0.404
+\end{align}
+
+For \textit{y = 3}, features 3 and 9 are active
+\begin{align}
+p(y=1|\vec{x}) &= \frac{\exp(3)}{\exp(1.9)+ \exp(2.9) + \exp(3)}\\
+&= \frac{20.085}{44.945}  = 0.447
+\end{align}
+
+Hence, \textit{y=3 = Noun: a factory} is the most probable.
+
+\end{enumerate}
+\end{exercise}
+
+\begin{exercise}{3} FOL to Natural language
+\begin{enumerate}[label=(\alph*)]
+\item "Every bear is furry."
+\item "Jan helps Joost"
+\item "Sergii eats pizza"
+\item "Sergii eats pizza with a fork" 
+\item "Every student lifts Marie, but not necessarily together"
+\item "All students lift Marie, together"
+\end{enumerate}
+\end{exercise}
+ 
+\begin{exercise}{4} Natural language to FOL	
+\begin{enumerate}[label=(\alph*)]
+
+\item $\exists e.x. \hspace{0.2cm} hating(e) \land pasta(x) \land hater(e,Juan) \land hatee(e,x)$
+
+\item $\exists x. \hspace{0.2cm} Student(x) \land \forall(y) Class(y) \land \exists e. \hspace{0.2cm} liking(e) \land liker(e, x) \land likee(e, y)$
+
+\item $\exists e.x. \hspace{0.2cm} seeing(e) \land seer(e, Marie) \land seen(e, Marie) $
+\end{enumerate}
+\end{exercise}
+\clearpage
+
+\begin{exercise}{5} Grammar with semantic attachments
+
+\begin{enumerate}[label=(\alph*)]
+\item \textit{Whiskers likes Sam}
+
+\begin{vwcol}[widths={0.25,1.2}]
+\textbf{Rule applied} \\
+$S \rightarrow NP VP$\\
+$VP \rightarrow V_t NP$\\
+$NP \rightarrow N$ \\ 
+$NP \rightarrow N$ \\ 
+$V_t \rightarrow likes$ \\ 
+$N \rightarrow Sam$ \\ 
+$N \rightarrow Whiskers$ \\
+\textbf{Result} \\
+$VP.sem(NP.sem)$ \\
+$V_t.sem(NP.sem)(NP.sem)$ \\
+$V_t.sem(N.sem)(NP.sem)$ \\
+$V_t.sem(N.sem)(N.sem)$ \\
+$\lambda x. \lambda y. \lp \exists e. \hspace{0.2cm} Liking(e) \land Liker(e, y) \land Likee(e, x)\rp (N.sem)(N.sem)$ \\
+$\lambda x. \lambda y. \lp \exists e. \hspace{0.2cm} Liking(e) \land Liker(e, y) \land Likee(e, x)\rp (Sam)(N.sem)$ \\
+$\lambda x. \lambda y. \lp \exists e. \hspace{0.2cm} Liking(e) \land Liker(e, y) \land Likee(e, x)\rp (Sam)(Whiskers)$ \\
+\end{vwcol}
+
+\item \textit{A cat meows} \\
+The MR is: $\lambda x.\lp \exists e. Meowing(e) \land Meower(e, x) \rp$ 
+
+We face the problem that we cannot specify that $x$ must be a cat. We solve it by adding these rules:
+
+\begin{itemize}
+\item $NP \rightarrow Det N \hspace{1.5cm} \lambda x. \hspace{0.2cm} \lp \exists x. Cat(x) \rp$ %something for a the exits
+\item $N \rightarrow Cat \hspace{1.5cm} \lambda x. \hspace{0.2cm} Cat(x)$
+\item $V_i \rightarrow meows \hspace{1.2cm} \lambda x. \lp \exists(e) Meowing(e) \land Meower(e,x) \land Cat(x) \rp$ \\
+%$\exists(x).cat(x) \land meows(x)$
+\end{itemize}
+
+\begin{vwcol}[widths={0.25,1.2}]
+\textbf{Rule applied} \\
+$S \rightarrow NP VP$\\
+$VP \rightarrow V_i$\\  
+$V_t \rightarrow meows$ \\ 
+$NP \rightarrow Det N$ \\ 
+$N \rightarrow  Cat$ \\ 
+$Det \rightarrow A$ \\ 
+\textbf{Result} \\
+$VP.sem(NP.sem)$ \\
+$V_t.sem(NP.sem)$ \\
+$\lambda x. \lp \exists e. \hspace{0.2cm} Meowing(e) \land Meower(e,x) \land Cat(x)\rp (NP.sem)$ \\
+$\lambda x. \lp \exists e. \hspace{0.2cm} Meowing(e) \land Meower(e,x) \land Cat(x)\rp (Det.sem)(N.sem)$ \\
+$\lambda x. \lp \exists e. \hspace{0.2cm} Meowing(e) \land Meower(e,x) \land Cat(x)\rp (\exists x.)(N.sem)$ \\
+$\lambda x. \lp \exists e. \hspace{0.2cm} Meowing(e) \land Meower(e,x) \land Cat(x)\rp (\exists x.)(Cat(x))$ \\
+\end{vwcol}
+
+\end{enumerate}
+\end{exercise} 
+
+\begin{exercise}{6} IBM Model
+\begin{enumerate}[label=(\alph*)]
+
+ \item Assumptions:
+ 
+ \begin{itemize}
+ \item Independence?
+ \end{itemize}
+ 
+\end{enumerate}
+\end{exercise}
+ 
+% --------------------------------------------------------------
+%     You don't have to mess with anything below this line.
+% --------------------------------------------------------------
+\bibliographystyle{plain}
+\bibliography{mybib} 
+ 
+ 
+\end{document}
